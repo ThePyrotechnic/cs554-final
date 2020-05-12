@@ -1,0 +1,6 @@
+{
+  "mongoConfig": {
+    "serverUrl": "mongodb://localhost/",
+    "database": "converter_final"
+  }
+}
