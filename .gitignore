@@ -3,3 +3,4 @@ credentials
 storage
 node_modules
 package-lock.json
+/src/firebase.js
