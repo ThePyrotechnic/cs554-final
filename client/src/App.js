@@ -102,33 +102,43 @@ class App extends Component {
 
             <div className="App">
                 <div className="wrapper">
+                    <div className="header">
                     {
                         this.state.user 
                         ?
-                        <input type="button" ref={this.logoutButton} value="Logout" onClick={this.logout}/>
+                        <input className="Log" type="button" ref={this.logoutButton} value="Logout" onClick={this.logout}/>
                         :
-                        <input type="button" ref={this.loginButton} value="Login" onClick={this.login}/>
+                        <React.Fragment>
+                        <h1>Login</h1>
+                        <input className="Log" type="button" ref={this.loginButton} value="Login" onClick={this.login}/>
+                        </React.Fragment>
                     }
                 </div>
                 {
                     this.state.user
                     ?
-                    <form encType="multipart/form-data">
-                    <label>Text: <input type="text" ref={this.textInput} name="text"/></label>
-                    <input type="file" ref={this.imageInput} name="image" onChange={this.handleFileChanged}/>
-                    <input type="button" ref={this.encodeImageBtn} value="Encode" onClick={this.handleEncode}/>
-                    <input type="button" ref={this.decodeImageBtn} value="Decode" onClick={this.handleDecode}/>
-                    <label>Length: <input type="checkbox" ref={this.lengthCheckbox}/></label>
-                    <h3>Welcome {this.state.user.email}</h3>
-                    </form>
+                    <div className="container">
+                        <h3>Welcome {this.state.user.email}</h3>
+                        <form encType="multipart/form-data">
+                        
+                            <label>Text: <input type="text" ref={this.textInput} name="text"/></label>
+                            <input type="file" ref={this.imageInput} name="image" onChange={this.handleFileChanged}/>
+                            <input type="button" ref={this.encodeImageBtn} value="Encode" onClick={this.handleEncode}/>
+                            <input type="button" ref={this.decodeImageBtn} value="Decode" onClick={this.handleDecode}/>
+                            <label>Length: <input type="checkbox" ref={this.lengthCheckbox}/></label>
+                          
+
+                        </form>
+                    </div>
                     :
-                    <h3>Login</h3>
+                    <h6></h6>
                 }
                
 
                 <img className="preview-img" src={this.state.beforeImageUrl} alt=""/>
-                <img className="preview-img" src={this.state.afterImageUrl} alt=""/>
+                <img className="postview-img" src={this.state.afterImageUrl} alt=""/>
                 <div id="decoded-text">{this.state.decodedText}</div>
+                </div>
             </div>
         )
     }
