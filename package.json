@@ -11,9 +11,11 @@
   "dependencies": {
     "express": "^4.17.1",
     "express-form-data": "^2.0.13",
+    "firebase": "^7.14.4",
     "firebase-admin": "^8.12.1",
     "jimp": "^0.10.3",
-    "mongodb": "^3.5.7"
+    "mongodb": "^3.5.7",
+    "react-router-dom": "^5.2.0"
   },
   "devDependencies": {
     "concurrently": "^5.2.0"

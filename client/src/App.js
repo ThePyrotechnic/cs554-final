@@ -1,8 +1,19 @@
-import React, {Component} from 'react'
-
+import React, {Component, useState} from 'react'
+import { ProvideAuth } from "./use-auth.js" 
 import './App.css'
+import { Switch, BrowserRouter as Router, Route } from "react-router-dom";
+import Header from "./header";
+
+import * as firebase from "firebase";
+import firebaseConfig from "./firebase.config";
+
+firebase.initializeApp(firebaseConfig);
+
+
+
 
 class App extends Component {
+
     constructor(props) {
         super(props)
         this.imageInput = React.createRef()
@@ -10,6 +21,10 @@ class App extends Component {
         this.encodeImageBtn = React.createRef()
         this.decodeImageBtn = React.createRef()
         this.lengthCheckbox = React.createRef()
+        this.state = {
+            isLoggedIn : false,
+            setLoggedIn : false
+        }
     }
 
     state = {
@@ -77,6 +92,10 @@ class App extends Component {
         // let {beforeImageUrl, afterImageUrl} = this.state
 
         return (
+            <ProvideAuth>
+            <Router>
+            <Header/>
+
             <div className="App">
                 <form encType="multiplart/form-data">
                     <label>Text: <input type="text" ref={this.textInput} name="text"/></label>
@@ -90,6 +109,8 @@ class App extends Component {
                 <img className="preview-img" src={this.state.afterImageUrl} alt=""/>
                 <div id="decoded-text">{this.state.decodedText}</div>
             </div>
+            </Router>
+            </ProvideAuth>
         )
     }
 }
