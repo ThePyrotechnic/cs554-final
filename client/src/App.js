@@ -12,7 +12,6 @@ class App extends Component {
         this.lengthCheckbox = React.createRef()
         this.login = this.login.bind(this); 
         this.logout = this.logout.bind(this);
-        // this.handleChange = this.handleChange.bind(this);
     }
 
     state = {
@@ -21,7 +20,6 @@ class App extends Component {
         afterImageUrl: "",
         user: null
     }
-
 
     componentDidMount() {
         auth.onAuthStateChanged((user) => {
