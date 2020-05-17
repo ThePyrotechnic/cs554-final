@@ -143,7 +143,10 @@ class App extends Component {
                     <h2>Uploads</h2>
                     <div className="scroller">
                         {this.state.userImages.map((url, index) => (
-                            <img className="thumbnail" src={url} key={index} alt=""/>
+                            <div className="img-center">
+                                <img className="thumbnail" src={url} key={index} alt=""/>
+                            </div>
+
                         ))}
                     </div>
                 </div>
