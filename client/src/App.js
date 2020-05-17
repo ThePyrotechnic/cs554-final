@@ -94,6 +94,7 @@ class App extends Component {
         data.append('uid', this.state.user.uid)
 
         const response = await this.handleApiRequest('post', '/api/user-image-ids', data)
+        if (response.info && response.info === "An error occurred") return
         for (let imageId of response) {
             const imageResponse = await this.getImageById(imageId)
             const imageUrl = window.URL.createObjectURL(imageResponse)
@@ -130,30 +131,44 @@ class App extends Component {
 
     render() {
         // let {beforeImageUrl, afterImageUrl} = this.state
+
         return (
             <div className="grid-container">
                 <div className="emptyItem">
-                    me empty
                 </div>
-                <div className="titleItem">
-                    Stenographer
+                <div className="titleItem vertical-align">
+                    <h1>Steganography-Er</h1>
                 </div>
-                <div className="uploadsItem">
-                    uploads
+                <div className="uploadsTitleItem">
+                    <h2>Uploads</h2>
+                </div>
+                <div className="encodedImageTitleItem">
+                    <h3>Encoded Image:</h3>
+                </div>
+                <div className="decodedTextTitleItem">
+                    <h3>Decoded Text:</h3>
                 </div>
 
-
-                <div className="logoutItem">
+                <div>
                     {
                         this.state.user
                             ?
-                            <input className="Log" type="button" ref={this.logoutButton} value="Logout"
-                                   onClick={this.logout}/>
+                            <React.Fragment>
+                                <div className="userInfoItem">
+                                    <h3>Welcome {this.state.user.email}</h3>
+                                </div>
+                                <div className="logoutItem">
+                                    <input className="log-button" type="button" ref={this.logoutButton} value="Logout"
+                                           onClick={this.logout}/>
+                                </div>
+                            </React.Fragment>
                             :
                             <React.Fragment>
                                 <h1>Login</h1>
-                                <input className="Log" type="button" ref={this.loginButton} value="Login"
-                                       onClick={this.login}/>
+                                <div className="logoutItem">
+                                    <input className="log-button" type="button" ref={this.loginButton} value="Login"
+                                           onClick={this.login}/>
+                                </div>
                             </React.Fragment>
                     }
                 </div>
@@ -161,40 +176,42 @@ class App extends Component {
                     this.state.user
                         ?
                         <div className="formBoxItem">
-                            <div className="userInfoItem">
-                                <h3>Welcome {this.state.user.email}</h3>
+                            <div className="form">
+                                <form encType="multipart/form-data">
+                                    <div>
+                                        <label><input type="text" placeholder="Enter text to encode" required="required"
+                                                      pattern="[A-Za-z0-9]{1,20}" ref={this.textInput}
+                                                      name="text"/></label>
+                                    </div>
+                                    <div>
+                                        <input className="custom-button" type="file" ref={this.imageInput} name="image"
+                                               onChange={this.handleFileChanged}/>
+                                    </div>
+                                    <div>
+                                        <input className="custom-button" type="button" ref={this.encodeImageBtn}
+                                               value="Encode" onClick={this.handleEncode}/>
+                                        <input className="custom-button" type="button" ref={this.decodeImageBtn}
+                                               value="Decode" onClick={this.handleDecode}/>
+                                    </div>
+                                </form>
                             </div>
 
-                            <form encType="multipart/form-data">
-                                <div className="inputTextItem">
-                                    <label>Text: <input type="text" ref={this.textInput} name="text"/></label>
-                                </div>
-                                <div className="fileBrowseItem">
-                                    <input type="file" ref={this.imageInput} name="image"
-                                           onChange={this.handleFileChanged}/>
-                                </div>
-                                <div className="encodeItem">
-                                    <input type="button" ref={this.encodeImageBtn} value="Encode"
-                                           onClick={this.handleEncode}/>
-                                </div>
-                                <div className="decodeItem">
-                                    <input type="button" ref={this.decodeImageBtn} value="Decode"
-                                           onClick={this.handleDecode}/>
-                                </div>
-                            </form>
                         </div>
                         :
                         <div></div>
                 }
                 <div className="encodedImageItem">
-                    <img className="postview-img" src={this.state.afterImageUrl} alt=""/>
+                    <div className="img">
+                        <img className="postview-img" src={this.state.afterImageUrl} alt=""/>
+                    </div>
                 </div>
                 <div className="decodedTextItem">
-                    <div id="decoded-text">{this.state.decodedText}</div>
-                </div>
-                <img className="preview-img" src={this.state.beforeImageUrl} alt=""/>
-            </div>
+                    <div className="img">
+                        <div id="decoded-text">{this.state.decodedText}</div>
+                    </div>
 
+                </div>
+            </div>
         )
     }
 }
