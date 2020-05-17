@@ -1,97 +1,126 @@
-.preview-img {
-	margin-left: 50px;
-	max-width: 200px;
-	grid-column: 1;
-	grid-row: 2/4;
+.userInfoItem { grid-area: userInfo; }
+.logoutItem { grid-area: logout; }
+.uploadsItem { grid-area: uploads; }
+.titleItem { grid-area: title; }
+.inputTextItem { grid-area: inputText; }
+.fileBrowseItem { grid-area: fileBrowse; }
+.encodeItem { grid-area: encode; }
+.decodeItem { grid-area: decode; }
+.encodedImageItem { grid-area: encodedImage; }
+.decodedTextItem { grid-area: decodedText; }
+.emptyItem { grid-area: empty; }
+.formBoxItem { grid-area: formBox; }
+
+.grid-container {
+    display: grid;
+    grid-template-areas:
+            'userInfo title title empty'
+            'logout formBox formBox empty'
+            'uploads formBox formBox empty'
+            'uploads formBox formBox empty'
+            'uploads encodedImage decodedText empty';
 }
 
-.postview-img {
-	max-width: 200px;
-	margin-right: 50px;
-	grid-column: 3;
-	grid-row: 2/4;
-}
+/*.grid-container-form {*/
+/*    display: grid;*/
+/*    grid-template-areas:*/
+/*            'inputText inputText'*/
+/*            'fileBrowse fileBrowse'*/
+/*            'encode decode';*/
+/*}*/
+
+/*.preview-img {*/
+/*	margin-left: 50px;*/
+/*	max-width: 200px;*/
+/*	grid-column: 1;*/
+/*	grid-row: 2/4;*/
+/*}*/
+
+/*.postview-img {*/
+/*	max-width: 200px;*/
+/*	margin-right: 50px;*/
+/*	grid-column: 3;*/
+/*	grid-row: 2/4;*/
+/*}*/
 
 
-h1 { 
-	float: right;
-	padding: 10px;
-	padding-right: 30px;
-	color: #333333; 
-	font-family: 'Bitter', serif; 
-	font-size: 50px; 
-	font-weight: normal; 
-	line-height: 54px; 
-	margin: 0 0 54px; 
-}
+/*h1 { */
+/*	float: right;*/
+/*	padding: 10px;*/
+/*	padding-right: 30px;*/
+/*	color: #333333; */
+/*	font-family: 'Bitter', serif; */
+/*	font-size: 50px; */
+/*	font-weight: normal; */
+/*	line-height: 54px; */
+/*	margin: 0 0 54px; */
+/*}*/
 
-.Log {
-  float: right;
-  width: 200px;
-  border: 3px solid #FFFFFF;
-  padding: 10px;
-}
+/*.Log {*/
+/*  float: right;*/
+/*  width: 200px;*/
+/*  border: 3px solid #FFFFFF;*/
+/*  padding: 10px;*/
+/*}*/
 
-.container {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
+/*.container {*/
+/*  border-radius: 5px;*/
+/*  background-color: #f2f2f2;*/
+/*  padding: 20px;*/
+/*}*/
 
-.row:after {
-  content: "";
-  display: table;
-  clear: both;
-}
+/*.row:after {*/
+/*  content: "";*/
+/*  display: table;*/
+/*  clear: both;*/
+/*}*/
 
-input[type=submit]:hover {
-  background-color: #45a049;
-}
+/*input[type=submit]:hover {*/
+/*  background-color: #45a049;*/
+/*}*/
 
-input[type=submit] {
-  background-color: #4CAF50;
-  color: white;
-  padding: 12px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  float: right;
-}
+/*input[type=submit] {*/
+/*  background-color: #4CAF50;*/
+/*  color: white;*/
+/*  padding: 12px 20px;*/
+/*  border: none;*/
+/*  border-radius: 4px;*/
+/*  cursor: pointer;*/
+/*  float: right;*/
+/*}*/
 
-label {
-  padding: 12px 12px 12px 0;
-  display: inline-block;
-}
-
-
-input[type=text], select, textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  resize: vertical;
-}
+/*label {*/
+/*  padding: 12px 12px 12px 0;*/
+/*  display: inline-block;*/
+/*}*/
 
 
+/*input[type=text], select, textarea {*/
+/*  width: 100%;*/
+/*  padding: 12px;*/
+/*  border: 1px solid #ccc;*/
+/*  border-radius: 4px;*/
+/*  resize: vertical;*/
+/*}*/
 
-.col-25 {
-  float: left;
-  width: 25%;
-  margin-top: 6px;
-}
+/*.col-25 {*/
+/*  float: left;*/
+/*  width: 25%;*/
+/*  margin-top: 6px;*/
+/*}*/
 
-.col-75 {
-  float: left;
-  width: 75%;
-  margin-top: 6px;
- }
+/*.col-75 {*/
+/*  float: left;*/
+/*  width: 75%;*/
+/*  margin-top: 6px;*/
+/* }*/
 
- .wrapper {
- 	display: grid;
- 	grid-template-columns: repeat(3, 1fr);
- 	grid-gap: 20px;
- 	grid-column-gap: 100px;
- 	grid-auto-rows: minmax(100px, auto);
- }
+/* .wrapper {*/
+/* 	display: grid;*/
+/* 	grid-template-columns: repeat(3, 1fr);*/
+/* 	grid-gap: 20px;*/
+/* 	grid-column-gap: 100px;*/
+/* 	grid-auto-rows: minmax(100px, auto);*/
+/* }*/
 
 

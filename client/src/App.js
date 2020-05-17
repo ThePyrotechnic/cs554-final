@@ -9,8 +9,7 @@ class App extends Component {
         this.textInput = React.createRef()
         this.encodeImageBtn = React.createRef()
         this.decodeImageBtn = React.createRef()
-        this.lengthCheckbox = React.createRef()
-        this.login = this.login.bind(this); 
+        this.login = this.login.bind(this);
         this.logout = this.logout.bind(this);
     }
 
@@ -64,7 +63,7 @@ class App extends Component {
         const data = new FormData()
         data.append('image', file)
         data.append('text', this.textInput.current.value)
-        data.append('includeLength', this.lengthCheckbox.current.checked)
+        data.append('includeLength', 'true')
 
         const imageResponse = await this.handleApiRequest('post', '/api/encrypt-image', data)
 
@@ -78,7 +77,7 @@ class App extends Component {
 
         const data = new FormData()
         data.append("image", file)
-        data.append("hasLength", this.lengthCheckbox.current.checked)
+        data.append("hasLength", 'true')
 
         const decodedText = await this.handleApiRequest("post", "/api/decrypt-image", data)
         this.setState({decodedText: decodedText["text"]})
@@ -107,47 +106,65 @@ class App extends Component {
         // let {beforeImageUrl, afterImageUrl} = this.state
 
         return (
-
-            <div className="App">
-                <div className="wrapper">
-                    <div className="header">
-                    {
-                        this.state.user 
-                        ?
-                        <input className="Log" type="button" ref={this.logoutButton} value="Logout" onClick={this.logout}/>
-                        :
-                        <React.Fragment>
-                        <h1>Login</h1>
-                        <input className="Log" type="button" ref={this.loginButton} value="Login" onClick={this.login}/>
-                        </React.Fragment>
-                    }
+            <div className="grid-container">
+                <div className="emptyItem">
+                    me empty
                 </div>
+                <div className="titleItem">
+                    Stenographer
+                </div>
+                <div className="uploadsItem">
+                    uploads
+                </div>
+
+
+                <div className="logoutItem">
                 {
                     this.state.user
                     ?
-                    <div className="container">
-                        <h3>Welcome {this.state.user.email}</h3>
-                        <form encType="multipart/form-data">
-                        
-                            <label>Text: <input type="text" ref={this.textInput} name="text"/></label>
-                            <input type="file" ref={this.imageInput} name="image" onChange={this.handleFileChanged}/>
-                            <input type="button" ref={this.encodeImageBtn} value="Encode" onClick={this.handleEncode}/>
-                            <input type="button" ref={this.decodeImageBtn} value="Decode" onClick={this.handleDecode}/>
-                            <label>Length: <input type="checkbox" ref={this.lengthCheckbox}/></label>
-                          
-
-                        </form>
-                    </div>
+                    <input className="Log" type="button" ref={this.logoutButton} value="Logout" onClick={this.logout}/>
                     :
-                    <h6></h6>
+                    <React.Fragment>
+                    <h1>Login</h1>
+                    <input className="Log" type="button" ref={this.loginButton} value="Login" onClick={this.login}/>
+                    </React.Fragment>
                 }
-               
-
-                <img className="preview-img" src={this.state.beforeImageUrl} alt=""/>
-                <img className="postview-img" src={this.state.afterImageUrl} alt=""/>
-                <div id="decoded-text">{this.state.decodedText}</div>
                 </div>
+            {
+                this.state.user
+                ?
+                <div className="formBoxItem">
+                    <div className="userInfoItem">
+                        <h3>Welcome {this.state.user.email}</h3>
+                    </div>
+
+                    <form encType="multipart/form-data">
+                        <div className="inputTextItem">
+                            <label>Text: <input type="text" ref={this.textInput} name="text"/></label>
+                        </div>
+                        <div className="fileBrowseItem">
+                            <input type="file" ref={this.imageInput} name="image" onChange={this.handleFileChanged}/>
+                        </div>
+                        <div className="encodeItem">
+                            <input type="button" ref={this.encodeImageBtn} value="Encode" onClick={this.handleEncode}/>
+                        </div>
+                        <div className="decodeItem">
+                            <input type="button" ref={this.decodeImageBtn} value="Decode" onClick={this.handleDecode}/>
+                        </div>
+                    </form>
+                </div>
+                :
+                    <div></div>
+            }
+                <div className="encodedImageItem">
+                    <img className="postview-img" src={this.state.afterImageUrl} alt=""/>
+                </div>
+                <div className="decodedTextItem">
+                    <div id="decoded-text">{this.state.decodedText}</div>
+                </div>
+            <img className="preview-img" src={this.state.beforeImageUrl} alt=""/>
             </div>
+
         )
     }
 }
