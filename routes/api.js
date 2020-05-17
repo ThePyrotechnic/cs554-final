@@ -1,8 +1,18 @@
 const express = require('express')
+const bluebird = require('bluebird')
+const redis = require('redis')
+
 const ImageOperations = require('../lib/ImageOperations')
 const Users = require('../data/users')
 const Images = require('../data/images')
 const {ObjectID} = require('mongodb')
+
+const redisClient = redis.createClient();
+
+redisClient.flushall()
+
+bluebird.promisifyAll(redis.RedisClient.prototype);
+bluebird.promisifyAll(redis.Multi.prototype);
 
 const router = express.Router()
 
@@ -31,8 +41,19 @@ router.post('/encrypt-image', async (req, res) => {
 
 router.post('/decrypt-image', async (req, res) => {
     if (req.files.image && req.files.image.size < 32 * 1024 * 1024) {
-        const decodedText = await ImageOperations.decodeText(req.files.image.path, req.body.hasLength)
+        const imageHash = await ImageOperations.hash(req.files.image.path)
+        const responseIsCached = await redisClient.existsAsync(imageHash)
+
+        let decodedText
+        if (responseIsCached === 1) {
+            decodedText = await redisClient.hgetAsync(imageHash, "text")
+        } else {
+            decodedText = await ImageOperations.decodeText(req.files.image.path, req.body.hasLength)
+
+            await redisClient.hsetAsync(imageHash, "text", decodedText)
+        }
         res.json({text: decodedText})
+
     } else {
         res.status(400)
         res.json({info: 'Invalid request'})

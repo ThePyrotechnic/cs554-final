@@ -9,11 +9,13 @@
     "build-client": "cd client && npm run build"
   },
   "dependencies": {
+    "bluebird": "^3.7.2",
     "express": "^4.17.1",
     "express-form-data": "^2.0.13",
     "firebase-admin": "^8.12.1",
     "jimp": "^0.10.3",
-    "mongodb": "^3.5.7"
+    "mongodb": "^3.5.7",
+    "redis": "^3.0.2"
   },
   "devDependencies": {
     "concurrently": "^5.2.0"
