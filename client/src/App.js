@@ -141,6 +141,11 @@ class App extends Component {
                 </div>
                 <div className="uploadsTitleItem">
                     <h2>Uploads</h2>
+                    <div>
+                        {this.state.userImages.map((url) => (
+                            <img className="thumbnail" src={url} alt=""/>
+                        ))}
+                    </div>
                 </div>
                 <div className="encodedImageTitleItem">
                     <h3>Encoded Image:</h3>
@@ -202,7 +207,7 @@ class App extends Component {
                 }
                 <div className="encodedImageItem">
                     <div className="img">
-                        <img className="postview-img" src={this.state.afterImageUrl} alt=""/>
+                        <img className="thumbnail" src={this.state.afterImageUrl} alt=""/>
                     </div>
                 </div>
                 <div className="decodedTextItem">
