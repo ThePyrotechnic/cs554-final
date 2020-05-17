@@ -8,7 +8,7 @@ module.exports = {
 
         const userCollection = await users()
 
-        const user = userCollection.findOne({"_id": id})
+        const user = await userCollection.findOne({"id": id})
         if (user === null) throw "Unable to find a user with the given ID"
 
         return user
@@ -39,7 +39,7 @@ module.exports = {
         const userCollection = await users()
 
         const newImage = await images.create(url, id, hasLength)
-        const res = await userCollection.updateOne({"_id": id}, {$push: {"images": newImage._id}})
+        const res = await userCollection.updateOne({"id": id}, {$push: {"images": newImage._id}})
 
         if (res.modifiedCount === 0) throw "Unable to add image to user"
     },
@@ -50,17 +50,17 @@ module.exports = {
         await this.get(id)  // This will throw if the ID doesn't exist
 
         const userCollection = await users()
-        const res = await userCollection.updateOne({"_id": id}, {$pull: {"images": newImage._id}})
+        const res = await userCollection.updateOne({"id": id}, {$pull: {"images": newImage._id}})
         const newImage = await images.delete(imageId)
 
-        if (res=== null) throw "Unable to delete image from user"
+        if (res === null) throw "Unable to delete image from user"
     },
 
     async delete(id) {
         if (!id) throw new Error('Invalid parameter: id');
 
         const userCollection = await users();
-        const res = await userCollection.findOneAndDelete({'_id':id});
+        const res = await userCollection.findOneAndDelete({'id':id});
         if (res === null) throw new Error('Unable to find a user with the given id');
 
         return res.value;
