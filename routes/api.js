@@ -58,11 +58,11 @@ router.post('/image', async (req, res) => {
                 const mongoImageId = ObjectID(req.body.imageId)
                 const image = await Images.get(mongoImageId)
                 res.sendFile(image.url, {headers: {'Content-Type': 'image/png'}})
-            } else {
-                res.status(400)
-                const response = {info: 'Invalid request'}
-                res.json(response)
+                return
             }
+        res.status(400)
+        const response = {info: 'Invalid request'}
+        res.json(response)
     } catch {
         res.status(500)
         const response = {info: 'An error occurred'}
