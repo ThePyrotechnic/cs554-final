@@ -147,13 +147,6 @@ class App extends Component {
                         ))}
                     </div>
                 </div>
-                <div className="encodedImageTitleItem">
-                    <h3>Encoded Image:</h3>
-                </div>
-                <div className="decodedTextTitleItem">
-                    <h3>Decoded Text:</h3>
-                </div>
-
                 <div>
                     {
                         this.state.user
@@ -200,22 +193,29 @@ class App extends Component {
                                     </div>
                                 </form>
                             </div>
+                            <div className="encodedImageTitleItem">
+                                <h3>Encoded Image:</h3>
+                            </div>
 
+                            <div className="encodedImageItem">
+                                <div className="img">
+                                    <img className="thumbnail" src={this.state.afterImageUrl} alt=""/>
+                                </div>
+                            </div>
+                            <div className="decodedTextTitleItem">
+                                <h3>Decoded Text:</h3>
+                            </div>
+                            <div className="decodedTextItem">
+                                <div className="img">
+                                    <div id="decoded-text">{this.state.decodedText}</div>
+                                </div>
+
+                            </div>
                         </div>
                         :
                         <div></div>
                 }
-                <div className="encodedImageItem">
-                    <div className="img">
-                        <img className="thumbnail" src={this.state.afterImageUrl} alt=""/>
-                    </div>
-                </div>
-                <div className="decodedTextItem">
-                    <div className="img">
-                        <div id="decoded-text">{this.state.decodedText}</div>
-                    </div>
 
-                </div>
             </div>
         )
     }

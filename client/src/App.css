@@ -18,8 +18,9 @@
 .formBoxItem {
     grid-area: formBox;
     text-align: center;
+}
+.form {
     border: solid; padding: 10px;
-
 }
 
 .grid-container {
