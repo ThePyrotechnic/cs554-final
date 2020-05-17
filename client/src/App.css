@@ -25,7 +25,10 @@
     text-align: center;
 }
 .form {
-    border: solid; padding: 10px;
+    border: solid gray;
+    padding: 10px;
+    border-radius: 5px;
+
 }
 
 .grid-container {
@@ -115,6 +118,9 @@ h3 {
 }
 
 .scroller {
+    border: solid gray;
+    padding: 10px;
+    border-radius: 5px;
     max-height: 80vh;
     overflow: scroll;
 }
@@ -180,3 +186,7 @@ h3 {
 /* }*/
 
 
+
+
+h1 { color: #111; font-family: 'Helvetica Neue', sans-serif; font-size: 275px; font-weight: bold; letter-spacing: -1px; line-height: 1; text-align: center; }
+h2 { color: #111; font-family: 'Open Sans', sans-serif; font-size: 30px; font-weight: 300; line-height: 32px; margin: 0 0 72px; text-align: center; }

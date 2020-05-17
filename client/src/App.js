@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {auth, provider}   from './firebase.js'
 import './App.css'
+import "../node_modules/picnic/picnic.min.css";
 
 class App extends Component {
     constructor(props) {
@@ -150,6 +151,7 @@ class App extends Component {
                         ))}
                     </div>
                 </div>
+
                 <div>
                     {
                         this.state.user
@@ -159,16 +161,41 @@ class App extends Component {
                                     <h3>Welcome {this.state.user.email}</h3>
                                 </div>
                                 <div className="logoutItem">
-                                    <input className="log-button" type="button" ref={this.logoutButton} value="Logout"
-                                           onClick={this.logout}/>
+                                    <button class="warning" ref={this.logoutButton} value="Logout"
+                                           onClick={this.logout}>Logout</button>
+                                </div>
+                                <div className="logoutItem">
+                                    <label for="modal_1" class="button">How to use</label>
+                                    <div class="modal">
+                                      <input id="modal_1" type="checkbox" />
+                                      <label for="modal_1" class="overlay"></label>
+                                      <article>
+                                        <header>
+                                          <h3>How to use</h3>
+                                          <label for="modal_1" class="close">&times;</label>
+                                        </header>
+                                        <section class="content">
+                                          In order to use this application, first upload an image that you want to 
+                                          store information in. Next, add some text to store and hit Encode! This 
+                                          will display an image with the stored textm which is also stored in the DB 
+                                          for ease of access in the future. Now, all you have to do is reupload that 
+                                          image and hit decode and your hidden text will be displayed.
+                                          Now send secret images to your friends!
+
+
+                                        </section>
+                                        <footer>
+                                        </footer>
+                                      </article>
+                                    </div>
                                 </div>
                             </React.Fragment>
                             :
                             <React.Fragment>
                                 <h1>Login</h1>
                                 <div className="logoutItem">
-                                    <input className="log-button" type="button" ref={this.loginButton} value="Login"
-                                           onClick={this.login}/>
+                                    <button class="warning" ref={this.loginButton} value="Login"
+                                           onClick={this.login}>Login</button>
                                 </div>
                             </React.Fragment>
                     }
@@ -185,14 +212,17 @@ class App extends Component {
                                                       name="text"/></label>
                                     </div>
                                     <div>
-                                        <input className="custom-button" type="file" ref={this.imageInput} name="image"
+                                        <label class="dropimgage">
+                                        <input title="drop image or click me" type="file" ref={this.imageInput} name="image"
                                                onChange={this.handleFileChanged}/>
+                                        </label>
                                     </div>
                                     <div>
-                                        <input className="custom-button" type="button" ref={this.encodeImageBtn}
-                                               value="Encode" onClick={this.handleEncode}/>
-                                        <input className="custom-button" type="button" ref={this.decodeImageBtn}
-                                               value="Decode" onClick={this.handleDecode}/>
+                                        <button width="flex" class="success" ref={this.encodeImageBtn}
+                                               value="Encode" onClick={this.handleEncode}>Encode</button>
+                                          <div></div>
+                                        <button class="failure" ref={this.decodeImageBtn}
+                                               value="Decode" onClick={this.handleDecode}>Decode</button>
                                     </div>
                                 </form>
                             </div>
