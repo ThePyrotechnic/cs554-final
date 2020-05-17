@@ -4,7 +4,12 @@
     text-align: center;
 }
 .uploadsTitleItem { grid-area: uploadsTitle; }
-.uploadsItem { grid-area: uploads; }
+.uploadsItem {
+    grid-area: uploads;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .titleItem { grid-area: title; }
 .inputTextItem { grid-area: inputText; }
 .fileBrowseItem { grid-area: fileBrowse; }
@@ -83,7 +88,7 @@ h3 {
     height: 10em;
     display: flex;
     align-items: center;
-    justify-content: center
+    justify-content: center;
 }
 
 .custom-button {
@@ -102,6 +107,11 @@ h3 {
 
 .vertical-align {
     vertical-align: middle;
+}
+
+.scroller {
+    max-height: 80vh;
+    overflow: scroll;
 }
 
 /*.container {*/
