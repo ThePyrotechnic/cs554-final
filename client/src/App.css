@@ -113,7 +113,12 @@ h3 {
     overflow: scroll;
 }
 
+.warning {
+    color: black;
+}
+
 .success {
+    color: black;
     width: 75%;
 }
 

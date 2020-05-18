@@ -155,14 +155,13 @@ class App extends Component {
                     <h1>Steganography-er</h1>
                 </div>
 
-
                 <div>
                     {
                         this.state.user
                             ?
                             <React.Fragment>
                                 <div className="userInfoItem">
-                                    <h3>Welcome {this.state.user.email}</h3>
+                                    <h2>Welcome {this.state.user.email}</h2>
                                 </div>
                                 <div className="logoutItem">
                                     <button className="warning" ref={this.logoutButton} value="Logout"
@@ -185,8 +184,6 @@ class App extends Component {
                                           for ease of access in the future. Now, all you have to do is re-upload that
                                           image and hit decode and your hidden text will be displayed.
                                           Now send secret images to your friends!
-
-
                                         </section>
                                         <footer>
                                         </footer>
