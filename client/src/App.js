@@ -46,17 +46,12 @@ class App extends Component {
     handleFileChanged = async (event) => {
         const file = this.imageInput.current.files[0]
 
-        if (file.size > 32 * 1024 * 1024) {
-            alert('Please upload a file under 32 MiB')
-            event.target.value = null
-        } else {
-            let reader = new FileReader()
-            reader.onload = (event) => {
-                this.setState({beforeImageUrl: event.target.result})
-            }
-
-            reader.readAsDataURL(file)
+        let reader = new FileReader()
+        reader.onload = (event) => {
+            this.setState({beforeImageUrl: event.target.result})
         }
+
+        reader.readAsDataURL(file)
     }
 
     handleEncode = async (event) => {
@@ -74,6 +69,7 @@ class App extends Component {
         const imageResponse = await this.handleApiRequest('post', '/api/encrypt-image', data)
 
         this.setState({afterImageUrl: window.URL.createObjectURL(imageResponse)})
+        await this.getUserImages()
     }
 
     handleDecode = async (event) => {
@@ -118,6 +114,8 @@ class App extends Component {
 
     getUserImages = async () => {
         if (this.state.user === null) return
+
+        this.setState({userImages: []})
 
         const data = new FormData()
         data.append('uid', this.state.user.uid)
