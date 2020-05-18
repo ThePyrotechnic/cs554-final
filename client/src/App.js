@@ -138,19 +138,9 @@ class App extends Component {
                 <div className="emptyItem">
                 </div>
                 <div className="titleItem vertical-align">
-                    <h1>Steganography-Er</h1>
+                    <h1>Steganography-er</h1>
                 </div>
-                <div className="uploadsTitleItem">
-                    <h2>Uploads</h2>
-                    <div className="scroller">
-                        {this.state.userImages.map((url, index) => (
-                            <div className="img-center">
-                                <img className="thumbnail" src={url} key={index} alt=""/>
-                            </div>
 
-                        ))}
-                    </div>
-                </div>
 
                 <div>
                     {
@@ -177,8 +167,8 @@ class App extends Component {
                                         <section class="content">
                                           In order to use this application, first upload an image that you want to 
                                           store information in. Next, add some text to store and hit Encode! This 
-                                          will display an image with the stored textm which is also stored in the DB 
-                                          for ease of access in the future. Now, all you have to do is reupload that 
+                                          will display an image with the stored text which is also stored in the DB
+                                          for ease of access in the future. Now, all you have to do is re-upload that
                                           image and hit decode and your hidden text will be displayed.
                                           Now send secret images to your friends!
 
@@ -193,7 +183,7 @@ class App extends Component {
                             :
                             <React.Fragment>
                                 <h1>Login</h1>
-                                <div className="logoutItem">
+                                <div className="formBoxItem">
                                     <button class="warning" ref={this.loginButton} value="Login"
                                            onClick={this.login}>Login</button>
                                 </div>
@@ -203,52 +193,70 @@ class App extends Component {
                 {
                     this.state.user
                         ?
-                        <div className="formBoxItem">
-                            <div className="form">
-                                <form encType="multipart/form-data">
-                                    <div>
-                                        <label><input type="text" placeholder="Enter text to encode" required="required"
-                                                      pattern="[A-Za-z0-9]{1,20}" ref={this.textInput}
-                                                      name="text"/></label>
-                                    </div>
-                                    <div>
-                                        <label class="dropimgage">
-                                        <input title="drop image or click me" type="file" ref={this.imageInput} name="image"
-                                               onChange={this.handleFileChanged}/>
-                                        </label>
-                                    </div>
-                                    <div>
-                                        <button width="flex" class="success" ref={this.encodeImageBtn}
-                                               value="Encode" onClick={this.handleEncode}>Encode</button>
-                                          <div></div>
-                                        <button class="failure" ref={this.decodeImageBtn}
-                                               value="Decode" onClick={this.handleDecode}>Decode</button>
-                                    </div>
-                                </form>
-                            </div>
-                            <div className="encodedImageTitleItem">
-                                <h3>Encoded Image:</h3>
-                            </div>
+                        <React.Fragment>
+                            <div className="uploadsTitleItem">
+                                <h2>Encoded Uploads</h2>
+                                <div className="scroller">
+                                    {this.state.userImages.map((url, index) => (
+                                        <div className="img-center">
+                                            <img className="thumbnail" src={url} key={index} alt=""/>
+                                        </div>
 
-                            <div className="encodedImageItem">
-                                <div className="img">
-                                    <img className="thumbnail" src={this.state.afterImageUrl} alt=""/>
+                                    ))}
                                 </div>
                             </div>
-                            <div className="decodedTextTitleItem">
-                                <h3>Decoded Text:</h3>
-                            </div>
-                            <div className="decodedTextItem">
-                                <div className="img">
-                                    <div id="decoded-text">{this.state.decodedText}</div>
+                            <div className="formBoxItem">
+                                <div className="form">
+                                    <form encType="multipart/form-data">
+                                        <div>
+                                            <label><input type="text" placeholder="Enter text to encode"
+                                                          required="required"
+                                                          pattern="[A-Za-z0-9]{1,20}" ref={this.textInput}
+                                                          name="text"/></label>
+                                        </div>
+                                        <br></br>
+                                        <div>
+                                            <label className="dropimgage">
+                                                <input title="drop image or click me" type="file" ref={this.imageInput}
+                                                       name="image"
+                                                       onChange={this.handleFileChanged}/>
+                                            </label>
+                                        </div>
+                                        <div>
+                                            <button className="success" ref={this.encodeImageBtn}
+                                                    value="Encode" onClick={this.handleEncode}>Encode
+                                            </button>
+                                            <div></div>
+                                            <button className="failure" ref={this.decodeImageBtn}
+                                                    value="Decode" onClick={this.handleDecode}>Decode
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div className="encodedImageTitleItem">
+                                    <h3>Encoded Image:</h3>
                                 </div>
 
+                                <div className="encodedImageItem">
+                                    <div className="img">
+                                        <img className="thumbnail" src={this.state.afterImageUrl} alt=""/>
+                                    </div>
+                                </div>
+                                <div className="decodedTextTitleItem">
+                                    <h3>Decoded Text:</h3>
+                                </div>
+                                <div className="decodedTextItem">
+                                    <div className="img">
+                                        <div id="decoded-text">{this.state.decodedText}</div>
+                                    </div>
+
+                                </div>
                             </div>
-                        </div>
+                        </React.Fragment>
+
                         :
                         <div></div>
                 }
-
             </div>
         )
     }
