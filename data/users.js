@@ -50,7 +50,7 @@ module.exports = {
         await this.get(id)  // This will throw if the ID doesn't exist
 
         const userCollection = await users()
-        const res = await userCollection.updateOne({"id": id}, {$pull: {"images": newImage._id}})
+        const res = await userCollection.updateOne({"id": id}, {$pull: {"images": imageId}})
         const newImage = await images.delete(imageId)
 
         if (res === null) throw "Unable to delete image from user"

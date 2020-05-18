@@ -61,6 +61,7 @@ class App extends Component {
 
     handleEncode = async (event) => {
         event.preventDefault()
+        if (this.state.user === null) return
 
         const file = this.imageInput.current.files[0]
 
@@ -68,7 +69,7 @@ class App extends Component {
         data.append('image', file)
         data.append('text', this.textInput.current.value)
         data.append('includeLength', 'true')
-        data.append('uid', this.state.user ? this.state.user.uid : '')
+        data.append('uid', this.state.user.uid)
 
         const imageResponse = await this.handleApiRequest('post', '/api/encrypt-image', data)
 
@@ -88,6 +89,33 @@ class App extends Component {
         this.setState({decodedText: decodedText['text']})
     }
 
+    handleImageClick = async (event) => {
+        event.preventDefault()
+        if (this.state.user === null) return
+
+        const imageId = event.target.getAttribute("data-id")
+
+        const data = new FormData()
+        data.append('imageId', imageId)
+        data.append('uid', this.state.user.uid)
+
+        try {
+            await this.handleApiRequest('post', '/api/delete-image', data)
+
+            let images = [...this.state.userImages]
+            for (let a = 0; a < images.length; a++) {
+                if (images[a].id === imageId) {
+                    images.splice(a, 1)
+                    break
+                }
+            }
+
+            this.setState({userImages: images})
+        } catch {
+            // Image somehow doesn't exist
+        }
+    }
+
     getUserImages = async () => {
         if (this.state.user === null) return
 
@@ -99,7 +127,7 @@ class App extends Component {
         for (let imageId of response) {
             const imageResponse = await this.getImageById(imageId)
             const imageUrl = window.URL.createObjectURL(imageResponse)
-            this.setState({userImages: [...this.state.userImages, imageUrl]})
+            this.setState({userImages: [...this.state.userImages, {id: imageId, url: imageUrl}]})
         }
     }
 
@@ -151,22 +179,22 @@ class App extends Component {
                                     <h3>Welcome {this.state.user.email}</h3>
                                 </div>
                                 <div className="logoutItem">
-                                    <button class="warning" ref={this.logoutButton} value="Logout"
+                                    <button className="warning" ref={this.logoutButton} value="Logout"
                                            onClick={this.logout}>Logout</button>
                                 </div>
                                 <div className="logoutItem">
-                                    <label for="modal_1" class="button">How to use</label>
-                                    <div class="modal">
+                                    <label htmlFor="modal_1" className="button">How to use</label>
+                                    <div className="modal">
                                       <input id="modal_1" type="checkbox" />
-                                      <label for="modal_1" class="overlay"></label>
+                                      <label htmlFor="modal_1" className="overlay"></label>
                                       <article>
                                         <header>
                                           <h3>How to use</h3>
-                                          <label for="modal_1" class="close">&times;</label>
+                                          <label htmlFor="modal_1" className="close">&times;</label>
                                         </header>
-                                        <section class="content">
-                                          In order to use this application, first upload an image that you want to 
-                                          store information in. Next, add some text to store and hit Encode! This 
+                                        <section className="content">
+                                          In order to use this application, first upload an image that you want to
+                                          store information in. Next, add some text to store and hit Encode! This
                                           will display an image with the stored text which is also stored in the DB
                                           for ease of access in the future. Now, all you have to do is re-upload that
                                           image and hit decode and your hidden text will be displayed.
@@ -184,7 +212,7 @@ class App extends Component {
                             <React.Fragment>
                                 <h1>Login</h1>
                                 <div className="formBoxItem">
-                                    <button class="warning" ref={this.loginButton} value="Login"
+                                    <button className="warning" ref={this.loginButton} value="Login"
                                            onClick={this.login}>Login</button>
                                 </div>
                             </React.Fragment>
@@ -197,9 +225,9 @@ class App extends Component {
                             <div className="uploadsTitleItem">
                                 <h2>Encoded Uploads</h2>
                                 <div className="scroller">
-                                    {this.state.userImages.map((url, index) => (
-                                        <div className="img-center">
-                                            <img className="thumbnail" src={url} key={index} alt=""/>
+                                    {this.state.userImages.map((data, index) => (
+                                        <div className="img-center" key={index}>
+                                            <img className="thumbnail" src={data.url} data-id={data.id} alt="" onClick={this.handleImageClick}/>
                                         </div>
 
                                     ))}

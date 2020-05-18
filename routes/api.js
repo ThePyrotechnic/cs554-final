@@ -71,6 +71,20 @@ router.post('/user-image-ids', async (req, res) => {
     }
 })
 
+router.post('/delete-image', async (req, res) => {
+    try {
+        const user = await Users.get(req.body.uid)
+        const mongoImageId = ObjectID(req.body.imageId)
+        await Users.deleteImage(req.body.uid, mongoImageId)
+        res.status(200)
+        res.json({info: 'Image successfully deleted'})
+    } catch {
+        res.status(500)
+        const response = {info: 'An error occurred'}
+        res.json(response)
+    }
+})
+
 router.post('/image', async (req, res) => {
     try {
         const user = await Users.get(req.body.uid)
