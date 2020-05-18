@@ -16,7 +16,6 @@ class App extends Component {
 
     state = {
         decodedText: '',
-        beforeImageUrl: '',
         afterImageUrl: '',
         user: null,
         userImages: []
@@ -41,17 +40,6 @@ class App extends Component {
             return await response.json()
 
         return await response.blob()
-    }
-
-    handleFileChanged = async (event) => {
-        const file = this.imageInput.current.files[0]
-
-        let reader = new FileReader()
-        reader.onload = (event) => {
-            this.setState({beforeImageUrl: event.target.result})
-        }
-
-        reader.readAsDataURL(file)
     }
 
     handleEncode = async (event) => {
@@ -244,8 +232,7 @@ class App extends Component {
                                         <div>
                                             <label className="dropimgage">
                                                 <input title="drop image or click me" type="file" ref={this.imageInput}
-                                                       name="image"
-                                                       onChange={this.handleFileChanged}/>
+                                                       name="image"/>
                                             </label>
                                         </div>
                                         <div>
